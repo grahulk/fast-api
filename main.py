@@ -2,7 +2,7 @@ from typing import List
 from uuid import UUID, uuid4
 from fastapi import FastAPI, HTTPException
 
-from model import Gender, Role, User
+from model import Gender, Role, User, UserEdit
 
 app = FastAPI()
 
@@ -50,4 +50,24 @@ async def delete_user(user_id: UUID):
     raise HTTPException(
         status_code=404,
         detail=f"User with id : {user_id} doesnt exist"
+    )
+
+
+@app.put("/api/v1/user")
+async def edit_user(edituser: UserEdit, userid: UUID):
+    for user in db:
+        if(user.id == userid):
+            if edituser.first_name is not None:
+                user.first_name = edituser.first_name
+            if edituser.last_name is not None:
+                user.last_name = edituser.last_name
+            if edituser.middle_name is not None:
+                user.middle_name = edituser.middle_name
+            if edituser.roles is not None:
+                user.roles = edituser.roles
+
+            return
+    raise HTTPException(
+        status_code=404,
+        detail=f"User with id : {userid} doesnt exist"
     )
