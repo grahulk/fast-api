@@ -53,7 +53,7 @@ async def delete_user(user_id: UUID):
     )
 
 
-@app.put("/api/v1/user")
+@app.put("/api/v1/user/{user_id}")
 async def edit_user(edituser: UserEdit, userid: UUID):
     for user in db:
         if(user.id == userid):
