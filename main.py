@@ -71,3 +71,5 @@ async def edit_user(edituser: UserEdit, userid: UUID):
         status_code=404,
         detail=f"User with id : {userid} doesnt exist"
     )
+# i should fetch data from data base in fast api and dump it to angular front,
+# mainly, get, post, put , delete and also host them.
